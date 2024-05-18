@@ -13,6 +13,9 @@ const Navigation = () => {
       <NavLink to="/tasks" className={bildLinkClass}>
         Tasks
       </NavLink>
+      <NavLink to="/clients" className={bildLinkClass}>
+        Clients
+      </NavLink>
     </>
   );
 };

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import TaskForm from "../components/TaskForm/TaskForm";
 import { getAllClients } from "../services/api";
+import ClientDetailsPage from "./ClientDetailsPage";
 
-const HomePage = () => {
+const ClientsPage = () => {
   const [clients, setClients] = useState([]);
   useEffect(() => {
     const fetchClients = async () => {
@@ -15,11 +15,18 @@ const HomePage = () => {
     };
     fetchClients();
   }, []);
+
   return (
-    <div>
-      <TaskForm clients={clients} />
-    </div>
+    <ul>
+      {clients.map(({ _id, name }) => {
+        return (
+          <li key={_id}>
+            <ClientDetailsPage name={name} />
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
-export default HomePage;
+export default ClientsPage;
