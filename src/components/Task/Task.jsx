@@ -4,7 +4,7 @@ import { deleteTaskById } from "../../services/api";
 import { useState } from "react";
 import { changeDateFormat } from "../../services/service";
 
-const Task = ({ id, date, name, time, workingHours, income, setAddTask }) => {
+const Task = ({ id, date, name, time, workingHours, income, setIsLoading }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const location = useLocation();
 
@@ -18,7 +18,7 @@ const Task = ({ id, date, name, time, workingHours, income, setAddTask }) => {
     try {
       await deleteTaskById(id);
       setModalIsOpen(false);
-      setAddTask(true);
+      setIsLoading(true);
     } catch (error) {
       console.log(error);
     }

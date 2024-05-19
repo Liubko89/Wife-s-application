@@ -7,7 +7,7 @@ import { sortedListByHours } from "../services/service";
 const HomePage = () => {
   const [clients, setClients] = useState([]);
   const [tasks, setTasks] = useState(null);
-  const [addTask, setAddTask] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -22,20 +22,20 @@ const HomePage = () => {
       try {
         const { data } = await getAllTasks();
         setTasks(sortedListByHours(data));
-        setAddTask(false);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchClients();
     fetchData();
-  }, [addTask]);
+  }, [isLoading]);
 
   return (
     <div>
-      <TaskForm clients={clients} setAddTask={setAddTask} />
+      <TaskForm clients={clients} setIsLoading={setIsLoading} />
       {tasks !== null && Array.isArray(tasks) && (
-        <FilterTasks tasks={tasks} setAddTask={setAddTask} />
+        <FilterTasks tasks={tasks} setIsLoading={setIsLoading} />
       )}
     </div>
   );

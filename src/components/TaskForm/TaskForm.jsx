@@ -11,13 +11,13 @@ const INITIAL_FORM_DATA = {
   income: "",
 };
 
-const TaskForm = ({ clients, setAddTask }) => {
+const TaskForm = ({ clients, setIsLoading }) => {
   const handleSubmit = async (formData, { resetForm }) => {
     try {
       const { error } = contactsSchema.validate(formData);
       if (error) return console.log(error.message);
       await postTask(formData);
-      setAddTask(true);
+      setIsLoading(true);
     } catch (error) {
       console.log(error.message);
     }

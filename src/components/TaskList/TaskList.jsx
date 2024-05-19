@@ -1,6 +1,6 @@
 import Task from "../Task/Task";
 
-const TaskList = ({ tasks, setAddTask }) => {
+const TaskList = ({ tasks, setIsLoading }) => {
   return (
     <ul>
       {tasks.map(({ _id, date, name, time, workingHours, income }) => {
@@ -13,7 +13,7 @@ const TaskList = ({ tasks, setAddTask }) => {
               time={time}
               workingHours={workingHours}
               income={income}
-              setAddTask={setAddTask}
+              setIsLoading={setIsLoading}
             />
           </li>
         );
