@@ -2,9 +2,10 @@ import TaskList from "../TaskList/TaskList";
 import { changeDateFormat, todayDate } from "../../services/service";
 import { useState } from "react";
 
-const FilterTasks = ({ tasks }) => {
+const FilterTasks = ({ tasks, setAddTask }) => {
   const [dayFrom, setDayFrom] = useState(todayDate);
   const [dayTo, setDayTo] = useState(todayDate);
+
   const [fromDateChangeFormat, setFromDateChangeFormat] = useState(
     changeDateFormat(todayDate)
   );
@@ -12,7 +13,7 @@ const FilterTasks = ({ tasks }) => {
     changeDateFormat(todayDate)
   );
 
-  const filters = tasks.filter(({ date }) => date === todayDate);
+  const filters = tasks.filter(({ date }) => date >= dayFrom && date <= dayTo);
 
   const handleChangeFrom = (e) => {
     console.log(e.target.value);
@@ -33,7 +34,9 @@ const FilterTasks = ({ tasks }) => {
       <span>From{fromDateChangeFormat}</span>
       <input type="date" value={dayTo} onChange={handleChangeTo} />
       <span>From{toDateChangeFormat}</span>
-      {tasks !== null && Array.isArray(tasks) && <TaskList tasks={filters} />}
+      {tasks !== null && Array.isArray(tasks) && (
+        <TaskList tasks={filters} setAddTask={setAddTask} />
+      )}
     </div>
   );
 };
