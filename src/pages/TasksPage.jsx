@@ -5,8 +5,6 @@ import TaskList from "../components/TaskList/TaskList";
 const TasksPage = () => {
   const [tasks, setTasks] = useState(null);
 
-  const reRender = (id) => setTasks(tasks.filter(({ _id }) => _id !== id));
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,9 +19,7 @@ const TasksPage = () => {
 
   return (
     <div>
-      {tasks !== null && Array.isArray(tasks) && (
-        <TaskList tasks={tasks} reRender={reRender} />
-      )}
+      {tasks !== null && Array.isArray(tasks) && <TaskList tasks={tasks} />}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { deleteTaskById } from "../../services/api";
 import { useState } from "react";
 import ModalTask from "../ModalTask/ModalTask";
 
-const TaskList = ({ tasks, reRender }) => {
+const TaskList = ({ tasks }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const location = useLocation();
 
@@ -22,7 +22,6 @@ const TaskList = ({ tasks, reRender }) => {
           try {
             await deleteTaskById(_id);
             setModalIsOpen(false);
-            reRender(_id);
           } catch (error) {
             console.log(error);
           }

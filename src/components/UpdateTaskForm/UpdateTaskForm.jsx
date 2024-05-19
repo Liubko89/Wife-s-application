@@ -1,12 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import css from "./UpdateTaskForm.module.css";
 import { useEffect, useRef, useState } from "react";
-import { getTaskById, updateTask } from "../../services/api";
+import { getAllClients, getTaskById, updateTask } from "../../services/api";
 import { updateContactsSchema } from "../../services/schemas";
 import { Navigate, useLocation, useParams } from "react-router-dom";
-// import { contactsSchema } from "../../services/schemas";
 
 const UpdateTaskForm = () => {
+  const [clients, setClients] = useState([]);
   const [isDataSent, setIsDataSent] = useState(false);
   const { taskId } = useParams();
   const [task, setTask] = useState(null);
@@ -22,6 +22,16 @@ const UpdateTaskForm = () => {
         console.log(error);
       }
     };
+
+    const fetchClients = async () => {
+      try {
+        const { data } = await getAllClients();
+        setClients(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchClients();
     fetchTask();
   }, [taskId]);
 
@@ -40,6 +50,14 @@ const UpdateTaskForm = () => {
 
   const { name, workingHours, date, time, income } = task;
 
+  function createNameOptions(clients) {
+    return clients.map(({ name, _id }) => (
+      <option key={_id} value={name}>
+        {name}
+      </option>
+    ));
+  }
+
   return (
     <>
       {isDataSent && <Navigate to={backLinkRef.current} />}
@@ -56,13 +74,10 @@ const UpdateTaskForm = () => {
         <Form className={css.form}>
           <label>
             <span className={css.label}>Client</span>
-            <Field
-              className="input"
-              type="text"
-              name="name"
-              placeholder="Enter client's name"
-              autoComplete="off"
-            />
+            <Field className="input" name="name" as="select">
+              <optgroup label="Select a client" />
+              {createNameOptions(clients)}
+            </Field>
             <ErrorMessage className="errorMsg" name="name" component="span" />
           </label>
           <label>
@@ -71,9 +86,23 @@ const UpdateTaskForm = () => {
               className="input"
               type="text"
               name="workingHours"
-              placeholder="hh"
-              autoComplete="off"
-            />
+              as="select"
+            >
+              <optgroup label="hh" />
+              <option value={1}>1</option>
+              <option value={1.5}>1.5</option>
+              <option value={2}>2</option>
+              <option value={2.5}>2.5</option>
+              <option value={3}>3</option>
+              <option value={3.5}>3.5</option>
+              <option value={4}>4</option>
+              <option value={4.5}>4.5</option>
+              <option value={5}>5</option>
+              <option value={5.5}>5.5</option>
+              <option value={6}>6</option>
+              <option value={6.5}>6.5</option>
+              <option value={7}>7</option>
+            </Field>
             <ErrorMessage className="errorMsg" name="number" component="span" />
           </label>
           <label>
