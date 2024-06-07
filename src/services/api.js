@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:4000";
+// axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://wife-s-application-backend.onrender.com";
 
 export async function postTask(obj) {
   const data = await axios.post("/tasks", obj);
